@@ -3,6 +3,7 @@ library flutter_html;
 import 'package:flutter/material.dart';
 import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
+export 'src/replaced_element.dart' show SvgContentElement, AudioContentElement;
 
 class Html extends StatelessWidget {
   /// The `Html` widget takes HTML as input and displays a RichText

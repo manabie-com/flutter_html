@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/style.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 void main() => runApp(new MyApp());
 
@@ -75,7 +76,7 @@ const htmlData = """
       <flutter></flutter>
       <flutter horizontal></flutter>
       <h3>SVG support:</h3>
-      <svg id='svg1' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+      <svg id='svg1' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' width="24" height="24">
             <circle r="32" cx="35" cy="65" fill="#F00" opacity="0.5"/>
             <circle r="32" cx="65" cy="65" fill="#0F0" opacity="0.5"/>
             <circle r="32" cx="50" cy="35" fill="#00F" opacity="0.5"/>
@@ -129,6 +130,18 @@ const htmlData = """
 """;
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    SvgContentElement.onOverride = (String data, double width, double height) {
+      return WebsafeSvg.string(
+        data,
+        width: width,
+        height: height,
+      );
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

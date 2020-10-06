@@ -203,8 +203,28 @@ class AudioContentElement extends ReplacedElement {
     dom.Element node,
   }) : super(name: name, style: style, node: node);
 
+  static Widget Function(
+    String name,
+    Style style,
+    List<String> src,
+    bool showControls,
+    bool autoplay,
+    bool loop,
+    bool muted,
+  ) onOverride;
+
   @override
   Widget toWidget(RenderContext context) {
+    if (onOverride != null)
+      return onOverride(
+        name,
+        style,
+        src,
+        showControls,
+        autoplay,
+        loop,
+        muted,
+      );
     return Container(
       width: context.style.width ?? 300,
       child: ChewieAudio(
@@ -282,8 +302,16 @@ class SvgContentElement extends ReplacedElement {
     this.height,
   });
 
+  static Widget Function(String data, double width, double height) onOverride;
+
   @override
   Widget toWidget(RenderContext context) {
+    if (onOverride != null)
+      return onOverride(
+        data,
+        width,
+        height,
+      );
     return SvgPicture.string(
       data,
       width: width,
